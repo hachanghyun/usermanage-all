@@ -61,7 +61,49 @@ services:
       - kafka
     networks:
       - app-network
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.3
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+    networks:
+      - elk
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.3
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - elk
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.17.3
+    container_name: logstash
+    volumes:
+      - ./logstash/pipeline/:/usr/share/logstash/pipeline/
+      - ./spring-logs:/logs  # Spring Boot 로그 파일이 있는 디렉토리
+    environment:
+      - LS_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "5010:5000"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
 
 networks:
   app-network:
+  elk:
+    driver: bridge
 

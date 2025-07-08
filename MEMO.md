@@ -114,3 +114,5 @@
      ├─ Partition 0
      ├─ Partition 1
      └─ Partition 2
+
+## ELK 추가, Jenkins 추가, Minikube, Helm 추가
