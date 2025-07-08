@@ -1,0 +1,67 @@
+services:
+  kafka:
+    image: bitnami/kafka:latest
+    ports: ["9092:9092"]
+    networks:
+      - app-network
+    environment:
+      KAFKA_KRAFT_CLUSTER_ID: kraft-cluster
+      KAFKA_CFG_NODE_ID: 1
+      KAFKA_CFG_PROCESS_ROLES: broker,controller
+      KAFKA_CFG_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      ALLOW_PLAINTEXT_LISTENER: yes
+
+  redis:
+    image: redis:alpine
+    ports: ["6379:6379"]
+    networks:
+      - app-network
+
+  spring-boot-app:
+    build:
+      context: ./usermanagement
+      dockerfile: Dockerfile
+    ports: ["8080:8080"]
+    depends_on:
+      - kafka
+      - redis
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker,generate-users
+    networks:
+      - app-network
+
+  mock-kakao:
+    build:
+      context: ./mock-kakao
+    ports:
+      - "8081:8081"
+    networks:
+      - app-network
+
+  mock-sms:
+    build:
+      context: ./mock-sms
+    ports:
+      - "8082:8082"
+    networks:
+      - app-network
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    ports:
+      - "8083:8080"
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local-cluster
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
+    depends_on:
+      - kafka
+    networks:
+      - app-network
+
+networks:
+  app-network:
+

@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  mariadb:
+    image: mariadb:10.6
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: rootpass
+      MARIADB_DATABASE: userdb
+      MARIADB_USER: user
+      MARIADB_PASSWORD: userpass
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    networks:
+      - app-network
+
+volumes:
+  mariadb-data:
+
+networks:
+  app-network:
