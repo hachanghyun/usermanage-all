@@ -32,6 +32,8 @@ services:
       - SPRING_PROFILES_ACTIVE=docker,generate-users
     networks:
       - app-network
+    volumes:
+      - ./spring-logs:/logs  # 여기가 누락됨!
 
   mock-kakao:
     build:
@@ -92,7 +94,9 @@ services:
     container_name: logstash
     volumes:
       - ./logstash/pipeline/:/usr/share/logstash/pipeline/
-      - ./spring-logs:/logs  # Spring Boot 로그 파일이 있는 디렉토리
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./spring-logs:/logs
     environment:
       - LS_JAVA_OPTS=-Xms512m -Xmx512m
     ports:

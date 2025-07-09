@@ -163,6 +163,9 @@
 ### 컨테이너 로그 확인
     docker logs -f 컨테이너명
 
+### 도커 컨테이너 단일 재시작
+    docker-compose restart logstash
+
 ## 카프카 관련 명령어
 ### 카프카 토픽 전체 조회
     docker exec -it <kafka-container-name> kafka-topics.sh --bootstrap-server localhost:9092 --list
@@ -190,3 +193,32 @@
 ### 모든 키 확인
     docker exec -it full-project-redis-1 redis-cli
     127.0.0.1:6379> keys *
+
+## ELK
+### Elasticsearch 인덱스 생성 확인
+    curl -X GET "localhost:9200/_cat/indices?v"
+### Kibana 접속
+    http://localhost:5601
+### Logstash 접속
+    http://localhost:9600
+### Logstash 로그 확인
+    docker logs -f full-project-logstash-1
+### Logstash 설정 파일 확인
+    docker exec -it full-project-logstash-1 cat /usr/share/logstash/config/logstash.conf
+### Logstash 설정 파일 수정
+    docker exec -it full-project-logstash-1 bash
+    vi /usr/share/logstash/config/logstash.conf
+### Logstash 설정 파일 적용
+    docker restart full-project-logstash-1
+### Logstash 설정 파일 적용 확인
+    docker logs -f full-project-logstash-1
+### Logstash 설정 파일 적용 후 Elasticsearch 인덱스 확인
+    curl -X GET "localhost:9200/_cat/indices?v"
+
+### Kibana에서 인덱스 패턴 생성
+    1.http://localhost:5601 접속 (Kibana)
+    2.왼쪽 메뉴 → Stack Management > Index Patterns
+    3.→ Create index pattern
+    4.인덱스 이름에 docker-logs-* 입력
+    5.타임필드로 @timestamp 선택
+    6.Discover 메뉴에서 로그 확인 가능

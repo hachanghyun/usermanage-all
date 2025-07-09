@@ -35,3 +35,10 @@ spring:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     properties:
       security.protocol: PLAINTEXT
+
+logging:
+  file:
+    path: /logs
+    name: /logs/app.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

@@ -115,4 +115,6 @@
      ├─ Partition 1
      └─ Partition 2
 
-## ELK 추가, Jenkins 추가, Minikube, Helm 추가
+## MACOS는 리눅스랑 도커 컨테이너 경로가 달라서 경로를 다르게 설정해줘야함
+
+## ELK 추가, Jenkins 추가
