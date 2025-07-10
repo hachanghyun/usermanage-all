@@ -21,6 +21,9 @@
     ./docker-init.sh
 <img width="1311" alt="스크린샷 2025-07-04 오후 4 18 05" src="https://github.com/user-attachments/assets/0980ba2b-e6b3-4366-accb-9c688ab55515" />
 
+## 컨테이너 실행 종료
+    docker-compose -f docker-compose.yml down
+
 ### 배치파일 실행 (Windows cmd 실행)
     docker-init.bat
 
@@ -219,6 +222,56 @@
     1.http://localhost:5601 접속 (Kibana)
     2.왼쪽 메뉴 → Stack Management > Index Patterns
     3.→ Create index pattern
-    4.인덱스 이름에 docker-logs-* 입력
+    4.인덱스 이름에 filebeat-* 입력
     5.타임필드로 @timestamp 선택
-    6.Discover 메뉴에서 로그 확인 가능
+    6.Discover 메뉴에서 container.name : "spring-boot-app" 등록후 로그 확인 가능
+
+### 컨테이너 이름 확인
+    container.name : "spring-boot-app"
+    container.name : "kafka"
+    container.name : "redis"
+    container.name : "spring-boot-app"
+    container.name : "spring-boot-app"
+
+
+### kibana에서 실시간 컨테이너 로그 시각화
+    🛠️ 만들기 순서 (Step-by-step)
+    1. Kibana → Visualize → Create new visualization
+       Lens 선택
+    
+    2. X축 (Horizontal axis) 설정
+    Field: @timestamp
+
+    Aggregation: Date Histogram
+    
+    Interval: auto 또는 30s, 1m (실시간성 조절)
+    
+    3. Y축 (Vertical axis) 설정
+       Function: Count (기본값)
+    
+       4. Break down by 설정
+          Field: container.name
+          → 컨테이너 이름별로 색깔이 다른 라인 그래프 or 막대그래프로 분리됨
+    
+       5. Visualization 타입 선택
+          Bar chart (막대), Line chart (선형), Area chart (누적) 중 선택 가능
+          → 보통 Bar chart로 비교 분석이 직관적
+    
+    💡 실시간성 높이려면
+    Lens 상단에서 Refresh every: 10 seconds 설정
+    
+    Time range는 Last 15 minutes 또는 Last 1 hour 등
+
+### filebeat 
+    filebeat:
+    image: docker.elastic.co/beats/filebeat:7.17.3
+    container_name: filebeat
+    user: root
+    volumes:
+    - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      depends_on:
+      - logstash
+      networks:
+      - elk

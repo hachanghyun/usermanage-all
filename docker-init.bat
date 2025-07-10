@@ -36,4 +36,4 @@ cd ..
 
 :: 3. 나머지 서비스 실행 (DB 제외)
 echo 🚀 Starting remaining services...
-docker-compose -f docker-compose.yml up --build
+docker-compose -f docker-compose.yml up --build -d

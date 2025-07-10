@@ -1,0 +1,35 @@
+filebeat.inputs:
+  - type: container
+    paths:
+      - '/var/lib/docker/containers/*/*.log'
+    stream: stdout
+    # ❌ 아래 multiline 설정 모두 제거
+
+processors:
+  - drop_event:
+      when:
+        or:
+          - regexp:
+              message: '^\s*$'  # 빈 줄
+          - regexp:
+              message: '^\s*[\{\}\[\]],*\s*$'  # {, }, [, ] 또는 쉼표만 있는 줄
+
+  - drop_fields:
+      fields: [
+        "host",
+        "agent",
+        "container.labels",
+        "ecs",
+        "input",
+        "log.offset",
+        "log.file.path",
+        "@version",
+        "tags",
+        "stream",
+        "log.flags"
+      ]
+
+output.logstash:
+  hosts: ["logstash:5010"]
+
+logging.level: warning
