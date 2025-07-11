@@ -175,6 +175,7 @@
 ### 모든 키 확인
     docker exec -it <redis> redis-cli
     127.0.0.1:6379> keys *
+<img width="420" height="414" alt="스크린샷 2025-07-11 오전 10 31 50" src="https://github.com/user-attachments/assets/92a2d5e2-fd11-4f2e-8f3c-f5844f751939" />
 
 ## ELK 관련 명령어
 ### Elasticsearch 인덱스 생성 확인
