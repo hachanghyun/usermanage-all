@@ -13,4 +13,4 @@ app.post('/kakaotalk-messages', (req, res) => {
     res.sendStatus(200);
 });
 
-app.listen(8081, () => console.log('🟢 Kakao mock server listening on 8081'));
+app.listen(8081, () => console.log('🟢🟢🟢 Kakao mock server listening on 8081'));

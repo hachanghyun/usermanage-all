@@ -14,4 +14,4 @@ app.post('/sms', (req, res) => {
     res.json({ result: 'OK' });
 });
 
-app.listen(8082, () => console.log('🟢 SMS mock server listening on 8082'));
+app.listen(8082, () => console.log('🟢🟢🟢 SMS mock server listening on 8082'));
