@@ -19,4 +19,7 @@ cd ..
 
 # 3. 나머지 공통 컴포즈 서비스 실행 (DB 제외)
 echo "Starting remaining services (Kafka, Redis, Spring Boot app, Mocks, Kafka UI)..."
-docker-compose -f docker-compose.yml up --build -d
+# 일반실행
+docker-compose -f docker-compose.yml up --build
+# 백그라운드 실행
+# docker-compose -f docker-compose.yml up --build -d

@@ -158,3 +158,22 @@
 ##### 30대 메시지 전송:
     curl -X POST http://localhost:8080/admin/messages -u admin:1212 -H "Content-Type: application/json" -d "{\"ageGroup\":30,\"message\":\"blabla\"}"
 
+## 젠킨스 세팅
+    jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    user: root
+    ports:
+    - "8084:8080"
+      - "50000:50000"
+      volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock  # 도커 빌드 가능하게
+      environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+      networks:
+      - app-network  # 또는 elk, 필요한 쪽에 붙이기
+    
+    volumes:
+    esdata:
+    jenkins_home:
