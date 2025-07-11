@@ -126,7 +126,7 @@
 <img width="1353" height="83" alt="스크린샷 2025-07-11 오전 10 08 44" src="https://github.com/user-attachments/assets/34ee4d56-715e-46d1-8ef3-c8f367683b0d" />
 
 
-# 부록 (카프카, MariaDB, Redis 관련 명령어)
+# 부록 (Kafka, MariaDB, Redis 관련 명령어)
 ## 도커 관련 명령어
 ### 도커 컨테이너 실행 확인
     docker ps

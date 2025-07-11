@@ -101,11 +101,12 @@ services:
     image: docker.elastic.co/logstash/logstash:7.17.3
     container_name: logstash
     volumes:
-      - ./spring-logs:/spring-logs  # 로그를 읽기 위해 공유
+      - ./logstash/pipeline/:/usr/share/logstash/pipeline/
+      - ./spring-logs:/logs        # ⬅ 로그 디렉토리 마운트
     environment:
       - LS_JAVA_OPTS=-Xms512m -Xmx512m
     ports:
-      - "5010:5010"
+      - "5044:5044"                # 필요 없다면 제거해도 됨
     networks:
       - elk
     depends_on:
