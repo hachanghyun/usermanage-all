@@ -99,6 +99,8 @@
     - 20대: 700명 (생년월일 2000년생, 주민번호 앞자리 "000101", 성별코드 3 → 2000년대 남성)
     - 30대: 700명 (생년월일 1990년생, 주민번호 앞자리 "900101", 성별코드 1 → 1900년대 남성)
     - 기타: 1600명은 10대~70대 무작위 생성
+<img width="949" height="180" alt="스크린샷 2025-07-11 오전 9 59 26" src="https://github.com/user-attachments/assets/70dbc426-48c8-4975-9264-2585852e4532" />
+
     
 #### Kafka 토픽 매핑 정보
     - 20대 → topic: message-topic-20s
@@ -109,20 +111,27 @@
     -u admin:1212 \
     -H "Content-Type: application/json" \
     -d '{"ageGroup": 20, "message": "blabla"}'
+<img width="1096" height="801" alt="스크린샷 2025-07-11 오전 10 01 10" src="https://github.com/user-attachments/assets/f9975067-e403-4f0c-9dbd-b520d179162b" />
+<img width="1111" height="801" alt="스크린샷 2025-07-11 오전 10 01 22" src="https://github.com/user-attachments/assets/fb78760e-82a3-4ace-aba6-c0a05d1456a9" />
 
 #### 30대 대상 메시지 전송
     curl -X POST http://localhost:8080/admin/messages \
     -u admin:1212 \
     -H "Content-Type: application/json" \
     -d '{"ageGroup": 30, "message": "blabla"}'
+<img width="1353" height="83" alt="스크린샷 2025-07-11 오전 10 08 44" src="https://github.com/user-attachments/assets/34ee4d56-715e-46d1-8ef3-c8f367683b0d" />
+
 
 # 부록 (카프카, MariaDB, Redis 관련 명령어)
 ## 도커 관련 명령어
 ### 도커 컨테이너 실행 확인
     docker ps
-    
+<img width="1345" height="452" alt="스크린샷 2025-07-11 오전 10 09 02" src="https://github.com/user-attachments/assets/e4d43bcc-0466-42fa-85f5-3159ac5ef7f3" />
+
 ### 컨테이너 로그 확인
     docker logs -f 컨테이너명
+<img width="709" height="403" alt="스크린샷 2025-07-11 오전 10 10 12" src="https://github.com/user-attachments/assets/a666dbbf-39f0-4bba-bdc8-9f94eecaad04" />
+
 
 ### 도커 컨테이너 단일 재시작
     docker-compose restart logstash
@@ -130,12 +139,17 @@
 ## 카프카 관련 명령어
 ### 카프카 토픽 전체 조회
     docker exec -it <kafka-container-name> kafka-topics.sh --bootstrap-server localhost:9092 --list
+<img width="1126" height="77" alt="스크린샷 2025-07-11 오전 10 10 41" src="https://github.com/user-attachments/assets/d3b572d3-825d-4dc9-ba1e-a43850578ffd" />
+
 
 ### 특정 토픽 내용 조회
     docker exec -it <kafka-container-name> kafka-console-consumer.sh \
     --bootstrap-server localhost:9092 \
     --topic message-topic-30s \
     --from-beginning
+<img width="899" height="355" alt="스크린샷 2025-07-11 오전 10 11 50" src="https://github.com/user-attachments/assets/8ef9a0b6-f5fc-4801-b2f1-bd62121a1c1b" />
+
+    
 
 ## MariaDB 관련 명령어
 ### MariaDB 컨테이너에 접속
