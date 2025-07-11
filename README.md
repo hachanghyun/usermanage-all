@@ -24,7 +24,7 @@
 ## 컨테이너 실행 종료
     docker-compose -f docker-compose.yml down
 
-## 3. curl 명령어로 API 과제 테스트 (macOS, Linux)
+## 3. curl 명령어로 API 테스트 (macOS, Linux)
 ### 1).회원가입 API 테스트
     curl -X POST http://localhost:8080/users/signup \
     -H "Content-Type: application/json" \
