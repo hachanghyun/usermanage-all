@@ -38,7 +38,5 @@ spring:
 
 logging:
   file:
-    path: /logs
-    name: /logs/app.log
-  pattern:
-    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    path: /spring-logs
+    name: app.log

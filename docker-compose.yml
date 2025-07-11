@@ -36,7 +36,7 @@ services:
     networks:
       - app-network
     volumes:
-      - ./spring-logs:/logs  # 여기가 누락됨!
+      - ./spring-logs:/spring-logs  # 로그를 외부와 공유
 
   mock-kakao:
     container_name: mock-kakao
@@ -101,10 +101,7 @@ services:
     image: docker.elastic.co/logstash/logstash:7.17.3
     container_name: logstash
     volumes:
-      - ./logstash/pipeline/:/usr/share/logstash/pipeline/
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./spring-logs:/logs
+      - ./spring-logs:/spring-logs  # 로그를 읽기 위해 공유
     environment:
       - LS_JAVA_OPTS=-Xms512m -Xmx512m
     ports:

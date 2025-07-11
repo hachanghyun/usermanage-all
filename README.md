@@ -177,87 +177,11 @@
     127.0.0.1:6379> keys *
 <img width="420" height="414" alt="스크린샷 2025-07-11 오전 10 31 50" src="https://github.com/user-attachments/assets/92a2d5e2-fd11-4f2e-8f3c-f5844f751939" />
 
-## ELK 관련 명령어
-### Elasticsearch 인덱스 생성 확인
-    curl -X GET "localhost:9200/_cat/indices?v"
-
-### Kibana 접속
-    http://localhost:5601
-
-### Logstash 접속
-    http://localhost:9600
-
-### Logstash 로그 확인
-    docker logs -f full-project-logstash-1
-
-### Logstash 설정 파일 확인
-    docker exec -it full-project-logstash-1 cat /usr/share/logstash/config/logstash.conf
-
-### Logstash 설정 파일 수정
-    docker exec -it full-project-logstash-1 bash
-    vi /usr/share/logstash/config/logstash.conf
-
-### Logstash 설정 파일 적용
-    docker restart full-project-logstash-1
-
-### Logstash 설정 파일 적용 확인
-    docker logs -f full-project-logstash-1
-
-### Logstash 설정 파일 적용 후 Elasticsearch 인덱스 확인
-    curl -X GET "localhost:9200/_cat/indices?v"
-
+## ELK 관련 세팅 (only spring-boot)
 ### Kibana에서 인덱스 패턴 생성
     1.http://localhost:5601 접속 (Kibana)
     2.왼쪽 메뉴 → Stack Management > Index Patterns
     3.→ Create index pattern
-    4.인덱스 이름에 filebeat-* 입력
+    4.인덱스 이름에 springboot-logs-* 입력
     5.타임필드로 @timestamp 선택
     6.Discover 메뉴에서 container.name : "spring-boot-app" 등록후 로그 확인 가능
-
-### 컨테이너 이름 확인
-    container.name : "spring-boot-app"
-    container.name : "kafka"
-    container.name : "redis"
-    container.name : "spring-boot-app"
-    container.name : "spring-boot-app"
-
-### kibana에서 실시간 컨테이너 로그 시각화
-    🛠️ 만들기 순서 (Step-by-step)
-    1. Kibana → Visualize → Create new visualizatio Lens 선택
-    
-    2. X축 (Horizontal axis) 설정
-    Field: @timestamp
-
-    Aggregation: Date Histogram
-    
-    Interval: auto 또는 30s, 1m (실시간성 조절)
-    
-    3. Y축 (Vertical axis) 설정
-       Function: Count (기본값)
-    
-    4. Break down by 설정
-       Field: container.name
-       → 컨테이너 이름별로 색깔이 다른 라인 그래프 or 막대그래프로 분리됨
-
-    5. Visualization 타입 선택
-       Bar chart (막대), Line chart (선형), Area chart (누적) 중 선택 가능
-       → 보통 Bar chart로 비교 분석이 직관적
-    
-    💡 실시간성 높이려면
-    Lens 상단에서 Refresh every: 10 seconds 설정
-    
-    Time range는 Last 15 minutes 또는 Last 1 hour 등
-
-### filebeat 
-    filebeat:
-    image: docker.elastic.co/beats/filebeat:7.17.3
-    container_name: filebeat
-    user: root
-    volumes:
-    - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-      depends_on:
-      - logstash
-      networks:
-      - elk
