@@ -158,15 +158,18 @@
 ## MariaDB 관련 명령어
 ### MariaDB 컨테이너에 접속
     docker exec -it mariadb bash
+<img width="734" height="47" alt="스크린샷 2025-07-11 오전 10 24 15" src="https://github.com/user-attachments/assets/16ae5bd1-cc56-4985-abde-15375e19ae4a" />
 
 ### mysql 클라이언트 실행 (컨테이너 안에서)
     mysql -u root -p
     password: rootpass
+<img width="626" height="207" alt="스크린샷 2025-07-11 오전 10 24 35" src="https://github.com/user-attachments/assets/b3431afd-b784-43c6-8dc2-d5b2eb67fc7b" />
 
 ### 원하는 데이터베이스 선택 후 쿼리 실행
     show databases;
     use userdb; 
     SELECT * FROM users;
+<img width="948" height="375" alt="스크린샷 2025-07-11 오전 10 24 46" src="https://github.com/user-attachments/assets/aa375f34-de51-44f4-9915-4b0ea4504791" />
 
 ## Redis 관련 명령어
 ### 모든 키 확인
