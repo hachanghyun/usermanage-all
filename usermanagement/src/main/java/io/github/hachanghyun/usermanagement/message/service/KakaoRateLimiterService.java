@@ -13,7 +13,7 @@ public class KakaoRateLimiterService {
     private final StringRedisTemplate redisTemplate;
 
     private static final int MAX_PER_MINUTE = 100;
-    private static final Duration TTL = Duration.ofMinutes(1);
+    private static final Duration TTL = Duration.ofMinutes(5);
 
     public boolean tryAcquire(String key) {
         String redisKey = "kakao-limit:" + key;
