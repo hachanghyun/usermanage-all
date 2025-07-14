@@ -5,16 +5,16 @@
 <img width="875" height="492" alt="스크린샷 2025-07-11 오후 1 46 37" src="https://github.com/user-attachments/assets/1a248957-ea03-4541-aa59-3286016b8fce" />
 
 # 기술 스택
-| 항목            | 사용 기술                            | 설명 |
-|-----------------|--------------------------------------|------|
-| 언어            | Java 17                             | 백엔드 시스템 구현에 사용된 주요 프로그래밍 언어 |
-| 프레임워크      | Spring Boot 3.5.3, Spring Data JPA   | 웹 애플리케이션 및 데이터 액세스 계층 구현에 사용됨 |
-| 빌드 도구       | Gradle                               | 프로젝트 의존성 관리 및 빌드 자동화 도구 |
-| 데이터베이스     | H2 Database, MariaDB                 | H2는 테스트용 인메모리 DB, MariaDB는 운영용 RDB로 사용 |
-| 인증/보안       | JWT, Spring Security                 | 로그인 인증 및 API 접근 권한 제어 구현 |
-| 메시지 큐       | Apache Kafka                         | 연령대별 메시지 비동기 분산 처리를 위한 메시지 브로커 |
-| 캐시/속도 제한   | Redis                                | 메시지 전송 중복 방지 및 Rate Limiting 처리에 사용 |
-| 문서화 도구     | Swagger UI (OpenAPI 3)              | REST API 명세 및 테스트용 UI 제공 |
+| 항목            | 사용 기술                            | 설명                                         | 
+|-----------------|--------------------------------------|--------------------------------------------|
+| 언어            | Java 17                             | 백엔드 시스템 구현에 사용된 주요 프로그래밍 언어                |
+| 프레임워크      | Spring Boot 3.5.3, Spring Data JPA   | 웹 애플리케이션 및 데이터 액세스 계층 구현에 사용됨              |
+| 빌드 도구       | Gradle                               | 프로젝트 의존성 관리 및 빌드 자동화 도구                    |
+| 데이터베이스     | H2 Database, MariaDB                 | H2는 테스트용 인메모리 DB, MariaDB는 운영용 RDB로 사용     |
+| 인증/보안       | JWT, Spring Security                 | 로그인 인증 및 API 접근 권한 제어 구현                   |
+| 메시지 큐       | Apache Kafka                         | 연령대별 메시지 비동기 분산 처리를 위한 메시지 브로커             |
+| 캐시/속도 제한   | Redis                                | 메시지 전송 중복 방지 및 Rate Limiting 처리에 사용        |
+| 문서화 도구     | Swagger UI (OpenAPI 3)              | REST API 명세 및 테스트용 UI 제공                   |
 | 기타 도구       | Lombok, Docker                       | Lombok은 보일러플레이트 제거, Docker는 컨테이너 기반 서비스 실행 |
 
 
