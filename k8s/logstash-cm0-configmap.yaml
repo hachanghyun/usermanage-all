@@ -1,0 +1,30 @@
+apiVersion: v1
+data:
+  logstash.conf: |
+    input {
+      file {
+        path => "/spring-logs/app.log"   # <-- 여기 경로가 springboot 내부와 일치해야 함
+        start_position => "beginning"
+        sincedb_path => "/dev/null"
+        codec => plain { charset => "UTF-8" }
+      }
+    }
+
+    filter {
+      if [message] =~ "^\s*$" or [message] =~ "^\s*[\{\}\[\]],*\s*$" {
+        drop {}  # 빈 줄 또는 불필요한 JSON 구조 로그 제거
+      }
+    }
+
+    output {
+      elasticsearch {
+        hosts => ["http://elasticsearch:9200"]
+        index => "springboot-logs-%{+YYYY.MM.dd}"
+      }
+      stdout { codec => rubydebug }
+    }
+kind: ConfigMap
+metadata:
+  labels:
+    io.kompose.service: logstash
+  name: logstash-cm0

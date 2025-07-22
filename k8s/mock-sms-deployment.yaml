@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o k8s/
+    kompose.version: 1.36.0 (HEAD)
+  labels:
+    io.kompose.service: mock-sms
+  name: mock-sms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mock-sms
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -o k8s/
+        kompose.version: 1.36.0 (HEAD)
+      labels:
+        io.kompose.service: mock-sms
+    spec:
+      containers:
+        - image: mock-sms
+          name: mock-sms
+          ports:
+            - containerPort: 8082
+              protocol: TCP
+      restartPolicy: Always
