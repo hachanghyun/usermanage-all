@@ -28,7 +28,7 @@
 ### 쉘파일 실행 (macOS, Linux)
     chmod +x docker-init.sh
     ./docker-init.sh
-<img width="1311" alt="스크린샷 2025-07-04 오후 4 18 05" src="https://github.com/user-attachments/assets/0980ba2b-e6b3-4366-accb-9c688ab55515" />
+
 
 ## 컨테이너 실행 종료
     docker-compose -f docker-compose.yml down
@@ -45,13 +45,11 @@
     "phoneNumber": "01012345678",
     "address": "서울특별시 금천구"
     }'
-<img width="889" alt="스크린샷 2025-07-04 오후 4 19 37" src="https://github.com/user-attachments/assets/c4fd343f-ede7-488a-b200-863267b5232e" />
 
 
 ### 2).시스템 관리자 API 테스트
 #### 2-1. 전체 사용자 조회 (예: 페이징1 페이지당 30명)
     curl -X GET "http://localhost:8080/admin/users?page=1&size=30" -u admin:1212
-<img width="1347" alt="스크린샷 2025-07-04 오후 5 42 44" src="https://github.com/user-attachments/assets/b4b38a2b-7af8-41a1-889b-19141d2d99e3" />
 
 
 #### 2-2. 사용자 정보 수정 (예: userId=3000 가정)
@@ -60,7 +58,6 @@
     -u admin:1212 \
     -H "Content-Type: application/json" \
     -d '{"address": "경기도 수원시"}'
-<img width="947" alt="스크린샷 2025-07-04 오후 5 46 19" src="https://github.com/user-attachments/assets/35464065-bf1f-405c-9d53-abaad0792f9a" />
 
 
 ##### 비밀번호 변경
@@ -68,7 +65,6 @@
     -u admin:1212 \
     -H "Content-Type: application/json" \
     -d '{"password": "newPassword123"}'
-<img width="940" alt="스크린샷 2025-07-04 오후 5 46 31" src="https://github.com/user-attachments/assets/76034ff6-9fa9-49c2-af21-e88d4cf4cc63" />
 
 
 ##### 비밀번호, 주소 변경
@@ -76,12 +72,10 @@
     -u admin:1212 \
     -H "Content-Type: application/json" \
     -d '{"password": "newPassword123", "address": "서울시 송파구"}'
-<img width="943" alt="스크린샷 2025-07-04 오후 5 46 44" src="https://github.com/user-attachments/assets/363664b7-6820-4745-ae4c-c23903cc15ff" />
 
 
 #### 2-3. 사용자 삭제 (예: userId=3000 가정)
     curl -X DELETE http://localhost:8080/admin/users/3000 -u admin:1212
-<img width="1346" alt="스크린샷 2025-07-04 오후 5 47 44" src="https://github.com/user-attachments/assets/09f28933-0c85-480d-aab0-7701458fe11b" />
 
 
 ### 3).로그인 → JWT 토큰 획득
@@ -91,7 +85,6 @@
     "account": "test123",
     "password": "1234"
     }'
-<img width="1176" alt="스크린샷 2025-07-04 오후 5 48 01" src="https://github.com/user-attachments/assets/0600ccd8-334d-4da3-9547-529631b62a93" />
 
 
 #### 위 명령 결과에서 "message" 필드에 있는 토큰 값을 추출한 후, 아래 명령에서 jwt 자리에 넣어주세요.
@@ -99,7 +92,6 @@
 ### 4).로그인 한 사용자의 자신의 회원 상세 정보 조회 테스트
     curl -X GET http://localhost:8080/users/me \
     -H "Authorization: Bearer jwt"
-<img width="1285" alt="스크린샷 2025-07-04 오후 5 48 30" src="https://github.com/user-attachments/assets/5ef4ce75-ef1e-464c-9521-47739f421f3e" />
 
 
 ### 5).관리자API) 연령대별 kafka 메시지 전송 테스트
