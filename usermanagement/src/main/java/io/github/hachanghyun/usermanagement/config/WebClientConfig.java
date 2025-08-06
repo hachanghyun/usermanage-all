@@ -12,7 +12,7 @@ public class WebClientConfig {
         return WebClient.builder()
                 .baseUrl("http://mock-kakao:8081")
                 .defaultHeaders(headers -> {
-                    headers.setBasicAuth("autoever", "1234");
+                    headers.setBasicAuth("admin1", "1234");
                     headers.set("Content-Type", "application/json");
                 })
                 .build();
@@ -23,7 +23,7 @@ public class WebClientConfig {
         return WebClient.builder()
                 .baseUrl("http://mock-sms:8082")
                 .defaultHeaders(headers -> {
-                    headers.setBasicAuth("autoever", "5678");
+                    headers.setBasicAuth("admin2", "5678");
                     headers.set("Content-Type", "application/x-www-form-urlencoded");
                 })
                 .build();
